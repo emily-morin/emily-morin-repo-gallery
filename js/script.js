@@ -5,8 +5,14 @@ const overview = document.querySelector(".overview");
 // github username
 const username = "emily-morin";
 
-// list where repo info shows up
-const repoList = document.querySelector(".repo-list");
+// list where repo list items show up
+const repoNames = document.querySelector(".repo-list");
+
+// section for all repo info
+const repos = document.querySelector(".repos");
+
+// section displaying individual repo data
+const repoData = document.querySelector(".repo-data");
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -45,15 +51,62 @@ const getRepos = async function () {
     const data = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
     const cleanData = await data.json();
     // console.log(cleanData);
-    displayRepoInfo(cleanData);
+    displayRepoName(cleanData);
 };
 
-// function to display repo info
-const displayRepoInfo = function (repo) {
+// function to display repo name in list item h3
+const displayRepoName = function (repo) {
     for (const item of repo) {
         li = document.createElement("li");
         li.classList.add("repo");
         li.innerHTML = `<h3>${item.name}</h3>`;
-        repoList.append(li);
+        repoNames.append(li);
     }
 };
+
+// click event listener for repo list ul 
+const repoList = repoNames.addEventListener("click", function (e) {
+    if (e.target.matches("h3")) {
+        const repoName = e.target.innerText;
+        getRepoDetails(repoName);
+    }
+});
+
+// async function to GET specific repo information
+const getRepoDetails = async function (repoName) {
+    const data = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
+    const repoInfo = await data.json();
+    console.log(repoInfo);
+
+    // creating array of languages used in repo
+    const fetchLanguages = await fetch(`https://api.github.com/repos/${username}/${repoName}/languages`);
+    const languageData = await fetchLanguages.json();
+    console.log(languageData);
+    
+    // looping through languageData object to add languages to an array
+    let languages = [];
+    for (const item in languageData) {
+        languages.push(item);
+    }
+    console.log(languages);
+
+    // calling displayRepoInfo function (defined below)
+    displayRepoInfo(repoInfo, languages);
+};
+
+
+// function to DISPLAY specific repo info
+const displayRepoInfo = function (repoInfo, languages) {
+    repoData.innerHTML = "";
+    const repoInfoElement = document.createElement("div");
+    repoInfoElement.innerHTML = `<div>
+    <h3>Name: ${repoInfo.name}</h3>
+        <p>Description: ${repoInfo.description}</p>
+        <p>Default Branch: ${repoInfo.default_branch}</p>
+        <p>Languages: ${languages.join(", ")}</p>
+        <a class="visit" href="${repoInfo.html_url}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>
+    </div>`;
+    repoData.append(repoInfoElement);
+    repoData.classList.remove("hide");
+    repos.classList.add("hide");
+}
