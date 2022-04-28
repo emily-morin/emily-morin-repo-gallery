@@ -37,15 +37,17 @@ usernameFetch();
 const displayUserData = function (jsonData) {
     const userInfo = document.createElement("div");
     userInfo.classList.add("user-info");
-    userInfo.innerHTML = `<div>
-    <figure>
-        <img alt="user avatar" src=${jsonData.avatar_url} />
-    </figure>
-    <div>
-        <p><strong>Name:</strong> ${jsonData.name}</p>
-        <p><strong>Bio:</strong> ${jsonData.bio}</p>
-        <p><strong>Location:</strong> ${jsonData.location}</p>
-        <p><strong>Number of public repos:</strong> ${jsonData.public_repos}</p>
+    userInfo.innerHTML = 
+    `<div>
+        <figure>
+            <img alt="user avatar" src=${jsonData.avatar_url} />
+        </figure>
+        <div>
+            <p><strong>Name:</strong> ${jsonData.name}</p>
+            <p><strong>Bio:</strong> ${jsonData.bio}</p>
+            <p><strong>Location:</strong> ${jsonData.location}</p>
+            <p><strong>Number of public repos:</strong> ${jsonData.public_repos}</p>
+        </div>
     </div>`
     overview.append(userInfo);
     getRepos();
