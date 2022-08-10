@@ -1,5 +1,5 @@
 // GLOBAL VARIABLES
-// selecting div class="overview" in intro section
+// selecting overview div in intro section
 const overview = document.querySelector(".overview");
 
 // github username
@@ -101,7 +101,7 @@ const getRepoDetails = async function (repoName) {
 };
 
 
-// function to DISPLAY specific repo info
+// function to DISPLAY specific repo information
 const displayRepoInfo = function (repoInfo, languages) {
     repoData.innerHTML = "";
     const repoInfoElement = document.createElement("div");

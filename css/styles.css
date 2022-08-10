@@ -145,6 +145,7 @@ ul {
     padding: 1em;
     margin-bottom: 1em;
     border: 2px solid #483978;
+    border-radius: 5px;
 }
 
 section.repo-data {
@@ -174,6 +175,7 @@ section.repo-data {
     width: 90%;
     margin: 1em 0;
     border: 1px solid #f86d58;
+    border-radius: 5px;
     padding: 0.5em;
 }
 
@@ -211,6 +213,7 @@ section.repo-data {
     display: block;
     background-color: #483978;
     border: 1px solid #483978;
+    border-radius: 5px;
 }
 
 .repo-data .visit:hover {
@@ -228,6 +231,7 @@ section.repo-data {
 .view-repos {
     max-width: 200px;
     margin-top: 0;
+    border-radius: 5px;
 }
 
 @media (min-width: 700px) {
